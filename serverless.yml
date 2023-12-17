@@ -1,0 +1,52 @@
+service: browse-api-serverless
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: us-west-1
+
+package:
+  individually: true
+
+layers:
+  puppeteer:
+    package:
+      artifact: artifacts/puppeteer.zip
+  python:
+    package:
+      artifact: artifacts/python.zip
+
+functions:
+  browse-text:
+    runtime: nodejs18.x
+    handler: browse-text.handler
+    memorySize: 4096
+    timeout: 60
+    ephemeralStorageSize: 10240
+    url: true
+    layers:
+    - !Ref PuppeteerLambdaLayer
+    package:
+      artifact: artifacts/browse-text.zip
+  pdf:
+    runtime: python3.9
+    handler: pdf.handler
+    memorySize: 4096
+    timeout: 60
+    ephemeralStorageSize: 10240
+    url: true
+    layers:
+    - !Ref PythonLambdaLayer
+    package:
+      artifact: artifacts/pdf.zip
+  youtube:
+    runtime: python3.9
+    handler: youtube.handler
+    memorySize: 4096
+    timeout: 60
+    ephemeralStorageSize: 10240
+    url: true
+    layers:
+    - !Ref PythonLambdaLayer
+    package:
+      artifact: artifacts/youtube.zip
