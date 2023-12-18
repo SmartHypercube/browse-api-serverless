@@ -2,14 +2,23 @@
 
 一些为 AI 提供打开 URL 的能力的 API，均设计为部署在 AWS Lambda 上的无服务器云函数。
 
-目前包含 3 个 API：
-- `youtube`：获取 YouTube 视频标题、所属频道、描述、字幕。
-- `pdf`：下载 PDF 并提取其中的文字。
+目前包含 4 个 API：
+
 - `browse-text`：用 headless Chromium 尝试打开网页，提取网页标题和显示的所有文字。
+- `github`：获取 GitHub 仓库的元信息和 README。
+- `pdf`：下载 PDF 并提取其中的文字。
+- `youtube`：获取 YouTube 视频标题、所属频道、描述、字幕。
 
 ## 部署
 
-安装 [Serverless Framework](https://serverless.com/) 并配置 AWS 凭证，然后在项目根目录下执行 `make`。运行结束后会输出各 API 的 URL。
+安装并配置以下依赖：
+
+- [Serverless Framework](https://serverless.com/)
+- [Node.js](https://nodejs.org/)
+- [Python 3.9](https://www.python.org/)
+- `zip`, `make` 等基础工具
+
+然后在项目根目录下执行 `make`。运行结束后会输出各 API 的 URL。
 
 ## 使用
 

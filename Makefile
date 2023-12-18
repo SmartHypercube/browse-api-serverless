@@ -1,6 +1,6 @@
 all: deploy
 
-artifacts: artifacts/puppeteer.zip artifacts/python.zip artifacts/browse-text.zip artifacts/pdf.zip artifacts/youtube.zip
+artifacts: artifacts/puppeteer.zip artifacts/python.zip artifacts/browse-text.zip artifacts/github.zip artifacts/pdf.zip artifacts/youtube.zip
 
 artifacts/puppeteer.zip: %.zip: package.json package-lock.json
 	rm -rf $@ $*
@@ -17,6 +17,12 @@ artifacts/python.zip: %.zip: requirements.txt
 	cd $* && zip -r ../$(@F) .
 
 artifacts/browse-text.zip: %.zip: browse-text.mjs
+	rm -rf $@ $*
+	mkdir -p $*
+	cp $^ $*
+	cd $* && zip -r ../$(@F) .
+
+artifacts/github.zip: %.zip: github.py
 	rm -rf $@ $*
 	mkdir -p $*
 	cp $^ $*

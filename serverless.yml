@@ -28,6 +28,17 @@ functions:
     - !Ref PuppeteerLambdaLayer
     package:
       artifact: artifacts/browse-text.zip
+  github:
+    runtime: python3.9
+    handler: github.handler
+    memorySize: 4096
+    timeout: 60
+    ephemeralStorageSize: 10240
+    url: true
+    layers:
+    - !Ref PythonLambdaLayer
+    package:
+      artifact: artifacts/github.zip
   pdf:
     runtime: python3.9
     handler: pdf.handler
