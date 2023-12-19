@@ -5,7 +5,7 @@ import requests
 
 max_result_length = 6291556
 def result_length(r):
-    return len(json.dumps(r))
+    return len(json.dumps(r, ensure_ascii=False).encode())
 
 def github(url, log=None):
     if log is None:
