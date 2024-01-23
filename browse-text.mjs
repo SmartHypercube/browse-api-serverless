@@ -1,12 +1,15 @@
 'use strict';
 
-import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import chromium from '@sparticuz/chromium';
 
 const maxResultLength = 6291556;
 function resultLength(r) {
   return Buffer.byteLength(JSON.stringify(r));
 }
+
+puppeteer.use(StealthPlugin());
 
 export async function main(url, log={}) {
   const timeBase = Date.now();
@@ -27,7 +30,6 @@ export async function main(url, log={}) {
   logEvent({event: 'launch'});
 
   const page = await browser.newPage();
-  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36');
   const cdp = await page.target().createCDPSession();
   async function getContent() {
     const {documents, strings} = await cdp.send('DOMSnapshot.captureSnapshot', {computedStyles: []});
